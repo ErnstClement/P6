@@ -28,7 +28,7 @@ exports.findOne = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
-exports.find = (req, res, next) => {
+exports.findAll = (req, res, next) => {
   Thing.find()
     .then((things) => res.status(200).json(things))
     .catch((error) => res.status(400).json({ error }));
