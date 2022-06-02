@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const stuffCtrl = require("../controllers/stuff");
+const stuffCtrl = require("../controllers/sauces");
 
 router.post("/", stuffCtrl.createThing);
 router.put("/:id", stuffCtrl.modifyThing);

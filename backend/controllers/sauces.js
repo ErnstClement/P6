@@ -1,8 +1,8 @@
-const Thing = require("../models/Thing");
+const Sauce = require("../models/sauce");
 
-exports.createThing = (req, res, next) => {
+exports.createSauce = (req, res, next) => {
   delete req.body._id;
-  const thing = new Thing({
+  const sauce = new Sauce({
     ...req.body,
   });
   Thing.save()
