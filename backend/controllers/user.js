@@ -1,5 +1,6 @@
+// Appel de Bcrypt pour le hachage du Mot de passe
 const bcrypt = require("bcrypt");
-
+// Récupération du modèle User
 const User = require("../models/User");
 
 exports.signup = (req, res, next) => {
