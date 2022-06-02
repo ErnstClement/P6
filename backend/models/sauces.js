@@ -31,17 +31,15 @@ const sauceSchema = mongoose.Schema({
   },
   likes: {
     type: Number,
-    required: true,
   },
   dislikes: {
     type: Number,
-    required: true,
   },
-  // Utilisateurs qui Like la sauce
+
   usersLiked: {
     type: [String],
   },
-  // Utilisateur qui DisLike la sauce
+
   usersDisliked: {
     type: [String],
   },
