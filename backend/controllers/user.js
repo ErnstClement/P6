@@ -2,6 +2,8 @@
 const bcrypt = require("bcrypt");
 // Récupération du modèle User
 const User = require("../models/User");
+// On récupère notre middleware JWT
+const jwt = require("jsonwebtoken");
 
 //-----------Création d'un nouvel utilisateur (middleWare)------------
 exports.signup = (req, res, next) => {
@@ -42,8 +44,18 @@ exports.login = (req, res, next) => {
           }
           // Renvoi du status 200 avec un objet JSON contenant l'"userId" et un token
           res.status(200).json({
+            //Renvoi de la réponse back vers le frond
             userId: user._id,
-            token: "TOKEN",
+            token: jwt.sign(
+              //On passe le token original dans jwt pour l'encodé
+              {
+                userId: user._id, // On passe aussi l'userId dans le cas ou cela serait necessaire
+              },
+              "ENCODAGE_TOKEN", // Clé d'encodage
+              {
+                expiresIn: "24h", // configuration d'expiration du Token
+              }
+            ),
           });
         })
         .catch((error) => res.status(500).json({ error }));
