@@ -3,7 +3,6 @@ const Sauce = require("../models/sauces");
 
 //----création d'une nouvelle sauce-----------------
 exports.createSauce = (req, res, next) => {
-  console.log("req.body", req.body);
   //On récupère les données envoyé par le frontend
   const sauceItem = JSON.parse(req.body.sauce);
   // On supprime l'Id envoyé par le frontend, une nouvelle Id sera crée dans la base de donnée MongoDB à la création
@@ -65,6 +64,8 @@ exports.getOneSauce = (req, res, next) => {
 
 //---Suppression d'une sauce----------------
 exports.deleteSauce = (req, res, next) => {
+  console.log(Sauce);
+
   // Avant de suppr l'objet, on va le chercher pour obtenir l'url de l'image et supprimer le fichier image de la base
   Sauce.findOne({
     _id: req.params.id,

@@ -2,6 +2,8 @@
 const express = require("express");
 // Importation de Mongoose pour acces a la base de donnée Mongo-DB
 const mongoose = require("mongoose");
+// Ajout du plugin Path
+const path = require("path");
 
 // Déclaration des routes----------------
 
@@ -47,6 +49,8 @@ app.use((req, res, next) => {
 // Utilisation des 2 routes dédiées pour sauces et auth
 app.use("/api/sauces", saucesRoutes);
 app.use("/api/auth", userRoutes);
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 // Export de l'application Express vers server.js
 module.exports = app;
