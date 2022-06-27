@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 
 //-----------Création d'un nouvel utilisateur (middleWare)------------
 exports.signup = (req, res, next) => {
+  console.log("req.boy****", req.body);
   // On utilise Bcrypt pour hash le mot de passe, ici le mot de passe fera 10 tours d'algorithme
   bcrypt
     .hash(req.body.password, 10)

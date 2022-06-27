@@ -40,6 +40,10 @@ app.use((req, res, next) => {
   next();
 });
 
+// Gestion de la ressource image de façon statique
+// Midleware qui permet de charger les fichiers qui sont dans le repertoire images
+//app.use("/images", express.static(path.join(__dirname, "images")));
+
 // Utilisation des 2 routes dédiées pour sauces et auth
 app.use("/api/sauces", saucesRoutes);
 app.use("/api/auth", userRoutes);
