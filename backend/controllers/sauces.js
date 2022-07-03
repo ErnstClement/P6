@@ -110,13 +110,14 @@ console.log(Sauce);
 exports.modifySauce = (req, res, next) => {
   let sauceObject = {};
   req.file
-    ? // Si la modification contient une image => Utilisation de l'opérateur ternaire comme structure conditionnelle.
+    ? // utilisation de l'opérateur conditionel pour ne pas utiliser les if/else
+      // Si la modification contient une nouvelle image
       (Sauce.findOne({
-        _id: req.params.id,
+        _id: req.params.id, // on récupere la sauce grace à son identifiant
       }).then((sauce) => {
         // On supprime l'ancienne image du serveur
         const filename = sauce.imageUrl.split("/images/")[1];
-        fs.unlinkSync(`images/${filename}`);
+        fs.unlinkSync(`images/${filename}`); // on supprime l'ancienne image de la base de données grace au module Files system
       }),
       (sauceObject = {
         // On modifie les données et on ajoute la nouvelle image
@@ -133,18 +134,20 @@ exports.modifySauce = (req, res, next) => {
   Sauce.updateOne(
     // On applique les paramètre de sauceObject
     {
-      _id: req.params.id,
+      _id: req.params.id, //récupération de l'id de la sauce
     },
     {
       ...sauceObject,
       _id: req.params.id,
     }
   )
+    // si tout se passe comme prévu, on renvoi un code 200 avec un message de validation
     .then(() =>
       res.status(200).json({
         message: "Sauce modifiée !",
       })
     )
+    // sinon renvoi d'un message d'erreur avec une erreur 400
     .catch((error) =>
       res.status(400).json({
         error,
@@ -156,7 +159,6 @@ exports.modifySauce = (req, res, next) => {
 //---Ajout/Suppression des likes-----
 
 exports.likeDislike = (req, res, next) => {
-  // Pour la route READ = Ajout/suppression d'un like / dislike à une sauce
   // Like présent dans le body
   let like = req.body.like;
   // On prend le userID
@@ -180,11 +182,13 @@ exports.likeDislike = (req, res, next) => {
         }, // On incrémente de 1
       }
     )
+      // si tout se passe bien, renvoi d'un message avec un code 200
       .then(() =>
         res.status(200).json({
           message: "j'aime ajouté !",
         })
       )
+      // sinon renvoi d'un code 400 avec un objet JSON error
       .catch((error) =>
         res.status(400).json({
           error,
