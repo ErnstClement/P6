@@ -11,7 +11,10 @@ module.exports = (req, res, next) => {
     // On vérifie que le userId envoyé avec la requête correspond au userId encodé dans le token
     const userId = decodedToken.userId;
     if (req.body.userId && req.body.userId !== userId) {
-      throw "userId non valide"; // si le token ne correspond pas au userId : erreur
+      throw "userId non valide";
+      res.status(403).json({
+        error: "unauthorized request",
+      }); // si le token ne correspond pas au userId : erreur
     } else {
       next(); // si tout est valide on passe au prochain middleware
     }
